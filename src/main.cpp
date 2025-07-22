@@ -9,7 +9,7 @@
 char *WIFI_SSID = "";
 char *WIFI_PASSWORD = "";
 char *FIREBASE_URL = "";
-char *NAME = "";
+String HOSTNAME = "ESP32";
 int i = 0;
 
 void connectWifi();
@@ -17,7 +17,6 @@ void connectWifi();
 void setup() {
 	Serial.begin(115200);
 
-	ESP.restart();
 	connectWifi();
 }
 
@@ -38,6 +37,10 @@ void loop() {
 }
 
 void connectWifi() {
+    WiFi.mode(WIFI_MODE_NULL);
+    WiFi.disconnect();
+    WiFi.setHostname(HOSTNAME.c_str());
+
     WiFi.begin(WIFI_SSID.c_str(), WIFI_PASSWORD.c_str());
 	Serial.print("Connecting to WiFi");
 
