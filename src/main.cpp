@@ -3,8 +3,10 @@
 #include "Firebase.h"
 #include "WiFi.h"
 #include "esp_smartconfig.h"
-#include "WiFi.h"
-#include "Firebase.h"
+
+
+
+
 
 char *WIFI_SSID = "";
 char *WIFI_PASSWORD = "";
