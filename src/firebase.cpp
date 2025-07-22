@@ -2,24 +2,56 @@
 
 HTTPClient http;
 
-void updateStatus(char *Path, int Status)
-{
-	http.begin(Path);
-	http.addHeader("Content-Type", "application/json");
-	http.addHeader("Connection", "keep-alive");
-	http.addHeader("Accept-Encoding", "gzip, deflate, br");
+String Firebase::post(const char *Path, String Payload) {
+    http.begin(Path);
+    http.addHeader("Content-Type", "application/json");
 
-	String payload = "{";
+    int httpResponseCode = http.POST(Payload);
 
-	payload.concat("\"status\":");
-	payload.concat(Status);
-	payload.concat("}");
+    if (httpResponseCode > 0) {
+        String result = http.getString();
+        Serial.print("Post Result: ");
+        Serial.println(result);
+        return result;
+    } else {
+        Serial.print("Error: ");
+        Serial.println(httpResponseCode);
+        return String(httpResponseCode);
+    }
+}
 
-	int httpResponseCode = http.PATCH(payload);
-	if (httpResponseCode > 0)
-	{
-		String result = http.getString();
-		Serial.print("Result: ");
-		Serial.println(result);
-	}
+String Firebase::patch(const char *Path, String Payload) {
+    http.begin(Path);
+    http.addHeader("Content-Type", "application/json");
+
+    int httpResponseCode = http.PATCH(Payload);
+
+    if (httpResponseCode > 0) {
+        String result = http.getString();
+        Serial.print("Patch Result: ");
+        Serial.println(result);
+        return result;
+    } else {
+        Serial.print("Error: ");
+        Serial.println(httpResponseCode);
+        return String(httpResponseCode);
+    }
+}
+
+String Firebase::put(const char *Path, String Payload) {
+    http.begin(Path);
+    http.addHeader("Content-Type", "application/json");
+
+    int httpResponseCode = http.PUT(Payload);
+
+    if (httpResponseCode > 0) {
+        String result = http.getString();
+        Serial.print("Put Result: ");
+        Serial.println(result);
+        return result;
+    } else {
+        Serial.print("Error: ");
+        Serial.println(httpResponseCode);
+        return String(httpResponseCode);
+    }
 }

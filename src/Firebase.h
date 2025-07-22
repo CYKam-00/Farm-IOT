@@ -2,4 +2,10 @@
 #include <Arduino.h>
 #include <HTTPClient.h>
 
-void updateStatus(char* Path, int Status);
+class Firebase
+{
+public:
+	static String post(const char *Path, String Payload);
+	static String patch(const char *Path, String Payload);
+	static String put(const char *Path, String Payload);
+};
